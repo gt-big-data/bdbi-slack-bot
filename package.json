@@ -1,0 +1,26 @@
+{
+  "name": "bdbi-slack-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gt-big-data/bdbi-slack-bot.git"
+  },
+  "author": "Rithik Gavvala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gt-big-data/bdbi-slack-bot/issues"
+  },
+  "homepage": "https://github.com/gt-big-data/bdbi-slack-bot#readme",
+  "dependencies": {
+    "@slack/bolt": "^2.5.0",
+    "axios": "^0.21.0",
+    "dotenv": "^8.2.0",
+    "slackbots": "^1.2.0"
+  }
+}
