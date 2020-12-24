@@ -56,7 +56,15 @@ app.message("hello", async ({ payload, client, say}) => {
     console.error(error);
   }
 });
+// The echo command simply echoes on command
+app.command('/help', async ({ command, ack, say }) => {
+    // Acknowledge command request
+    await ack();
+  
+    await say(`${command.text}`);
 
+    console.log("TEST")
+  });
 
 (async () => {
     // Start your app
