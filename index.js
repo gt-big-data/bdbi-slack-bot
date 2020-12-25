@@ -6,8 +6,8 @@ const express = require('express')
 const route = express()
 
 const app = new App({
-    token: process.env.BOT_TOKEN,
-    signingSecret: process.env.SIGNING_SECRET
+    token: process.env.SLACK_BOT_TOKEN,
+    signingSecret: process.env.SLACK_SIGNING_SECRET
 });
 
 // Require the Node Slack SDK package (github.com/slackapi/node-slack-sdk)
@@ -69,21 +69,22 @@ app.command('/help', async ({ command, ack, say }) => {
   });
 
 
-route.post('/slack/events', async(ctx) => {
-    const payload = ctx.request.body;
 
-    if(payload.type === 'url_verification'){
-        ctx.response.statusCode = 200;
-        ctx.respose.body = payload.challenge; 
-    }
+// route.post('/slack/events', async(ctx) => {
+//     const payload = ctx.request.body;
+
+//     if(payload.type === 'url_verification'){
+//         ctx.response.statusCode = 200;
+//         ctx.respose.body = payload.challenge; 
+//     }
 
 
-});
+// });
 
 
 (async () => {
     // Start your app
-    await app.start(3000);
+    await app.start(process.env.PORT || 3000);
 
     console.log('⚡️ Bolt app is running!');
   })();
