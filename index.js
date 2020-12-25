@@ -2,6 +2,8 @@ const { App } = require('@slack/bolt')
 const axios = require('axios')
 const dotenv = require('dotenv')
 dotenv.config()
+const express = require('express')
+const route = express()
 
 const app = new App({
     token: process.env.BOT_TOKEN,
@@ -65,6 +67,19 @@ app.command('/help', async ({ command, ack, say }) => {
 
     console.log("TEST")
   });
+
+
+route.post('/slack/events', async(ctx) => {
+    const payload = ctx.request.body;
+
+    if(payload.type === 'url_verification'){
+        ctx.response.statusCode = 200;
+        ctx.respose.body = payload.challenge; 
+    }
+
+
+});
+
 
 (async () => {
     // Start your app
