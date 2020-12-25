@@ -61,7 +61,7 @@ app.command('/help', async ({ command, ack, say }) => {
     // Acknowledge command request
     await ack();
   
-    await say(`${command.text}`);
+    await say("TEST");
 
     console.log("TEST")
   });
