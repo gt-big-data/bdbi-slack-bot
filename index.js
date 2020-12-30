@@ -25,6 +25,9 @@ app.event('app_home_opened', ({ event, say }) => {
 app.message('hello', async ({ message, say }) => {
   // say() sends a message to the channel where the event was triggered
   console.log("TEST");
+
+  await ack()
+  
   await say({
     blocks: [
       {
