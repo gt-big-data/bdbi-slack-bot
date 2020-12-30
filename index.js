@@ -1,85 +1,66 @@
-const { App } = require('@slack/bolt')
 const axios = require('axios')
 const dotenv = require('dotenv')
 dotenv.config()
 const express = require('express')
 const route = express()
+const { App } = require('@slack/bolt');
+
+
 
 const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
     signingSecret: process.env.SLACK_SIGNING_SECRET
 });
 
-// Require the Node Slack SDK package (github.com/slackapi/node-slack-sdk)
-const { WebClient, LogLevel } = require("@slack/web-api");
-
-// WebClient insantiates a client that can call API methods
-// When using Bolt, you can use either `app.client` or the `client` passed to listeners.
-const client = new WebClient({
-  token: process.env.SLACK_BOT_TOKEN,
-  // LogLevel can be imported and used to make debugging simpler
-  logLevel: LogLevel.DEBUG
-});
-
 
 app.event('app_home_opened', ({ event, say }) => {  
   // Look up the user from DB
   // console.log(event);
-  let user = store.getUser(event.user);
-  
-  if(!user) {
-    user = {
-      user: event.user,
-      channel: event.channel
-    };
-    store.addUser(user);
-    
-    say(`Hello world, and welcome <@${event.user}>!`);
-  } else {
-    say('Hi again!');
-  }
+  say(`Hello world, and welcome <@${event.user}>!`);
+
 });
 
-app.event('app_mention', ({ event, say }) => {  
-  console.log("App mentioned");
-  say("App Mentioned")
-  say(event.text)
-  
+
+// Listens to incoming messages that contain "hello"
+app.message('hello', async ({ message, say }) => {
+  // say() sends a message to the channel where the event was triggered
+  console.log("TEST");
+  await say({
+    blocks: [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": `Hey there <@${message.user}>!`
+        },
+        "accessory": {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "Click Me"
+          },
+          "action_id": "button_click"
+        }
+      }
+    ],
+    text: `Hey there <@${message.user}>!`
+  });
 });
 
-// Listen to a message containing the substring "hello"
-// app.message requires your app to subscribe to the message.channels event
-app.message("hello", async ({ payload, client, say}) => {
-  console.log("HERE");
-  try {
-    say("Found hello substring");
-  }
-  catch (error) {
-    console.error(error);
-  }
+app.action('button_click', async ({ body, ack, say }) => {
+  // Acknowledge the action
+  await ack();
+  await say(`<@${body.user.id}> clicked the button`);
 });
+
 // The echo command simply echoes on command
 app.command('/help', async ({ command, ack, say }) => {
     // Acknowledge command request
     await ack();
   
     await say("TEST");
-
     console.log("TEST")
   });
-
-
-
-// route.post('/slack/events', async(ctx) => {
-//     const payload = ctx.request.body;
-
-//     if(payload.type === 'url_verification'){
-//         ctx.response.statusCode = 200;
-//         ctx.respose.body = payload.challenge; 
-//     }
-
-
-// });
 
 
 (async () => {
@@ -88,3 +69,5 @@ app.command('/help', async ({ command, ack, say }) => {
 
     console.log('⚡️ Bolt app is running!');
   })();
+
+
