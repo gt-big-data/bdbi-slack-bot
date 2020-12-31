@@ -16,7 +16,7 @@ const app = new App({
 app.event('app_home_opened', ({ event, say }) => {  
   // Look up the user from DB
   // console.log(event);
-  say(`Hello world, and welcome <@${event.user}>!`);
+  say(`Hello BDBI user, and welcome <@${event.user}>!`);
 
 });
 
@@ -27,7 +27,7 @@ app.message('hello', async ({ message, say }) => {
   console.log("TEST");
 
   await ack()
-  
+
   await say({
     blocks: [
       {
