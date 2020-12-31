@@ -4,6 +4,17 @@ dotenv.config()
 const express = require('express')
 const route = express()
 const { App } = require('@slack/bolt');
+const {MongoClient} = require('mongodb');
+
+const uri = 'mongodb+srv://admin:bdbipass1@bdbibot.rjudp.mongodb.net/bdbibot?retryWrites=true&w=majority'
+
+const client = new MongoClient(uri);
+
+// Connect to the MongoDB cluster
+await client.connect();
+
+// Make the appropriate DB calls
+databasesList = await client.db().admin().listDatabases();
 
 
 
@@ -11,6 +22,7 @@ const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
     signingSecret: process.env.SLACK_SIGNING_SECRET
 });
+
 
 
 app.event('app_home_opened', ({ event, say }) => {  
@@ -61,27 +73,8 @@ app.command('/help', async ({ command, ack, say }) => {
     // Acknowledge command request
     await ack();
   
-    await say({
-      blocks: [
-        {
-          "type": "section",
-          "text": {
-            "type": "mrkdwn",
-            "text": `Hey there <@${message.user}>!`
-          },
-          "accessory": {
-            "type": "button",
-            "text": {
-              "type": "plain_text",
-              "text": "Click Me"
-            },
-            "action_id": "button_click"
-          }
-        }
-      ],
-      text: `Hey there <@${message.user}>!`
-    });
-    
+    await say("TEst");
+
     console.log("TEST")
   });
 
