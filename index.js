@@ -6,15 +6,15 @@ const route = express()
 const { App } = require('@slack/bolt');
 const {MongoClient} = require('mongodb');
 
-const uri = 'mongodb+srv://admin:bdbipass1@bdbibot.rjudp.mongodb.net/bdbibot?retryWrites=true&w=majority'
+// const uri = 'mongodb+srv://admin:bdbipass1@bdbibot.rjudp.mongodb.net/bdbibot?retryWrites=true&w=majority'
 
-const client = new MongoClient(uri);
+// const client = new MongoClient(uri);
 
-// Connect to the MongoDB cluster
-await client.connect();
+// // Connect to the MongoDB cluster
+// await client.connect();
 
-// Make the appropriate DB calls
-databasesList = await client.db().admin().listDatabases();
+// // Make the appropriate DB calls
+// databasesList = await client.db().admin().listDatabases();
 
 
 
@@ -28,7 +28,7 @@ const app = new App({
 app.event('app_home_opened', ({ event, say }) => {  
   // Look up the user from DB
   // console.log(event);
-  say(`Hello BDBI user, and welcome <@${event.user}>!`);
+  say(`Hello BDBI member, and welcome <@${event.user}>!`);
 
 });
 
