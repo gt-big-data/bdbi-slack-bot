@@ -15,7 +15,9 @@ const client = new MongoClient(uri);
 
 async function dbConnect(){
   try {
+    console.log("BEFORE");
     await client.connect();
+    console.log("AFTER")
     databasesList = await client.db().admin().listDatabases();
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
   }
