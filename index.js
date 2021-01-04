@@ -15,7 +15,7 @@ const app = new App({
 
 
 
-app.event('app_home_opened', ({ event, say }) => {  
+app.event('app_home_opened', async ({ event, say }) => {  
   // Look up the user from DB
   // console.log(event);
   say(`Hello BDBI member, and welcome <@${event.user}>!`);
