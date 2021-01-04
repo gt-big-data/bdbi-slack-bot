@@ -42,7 +42,7 @@ const app = new App({
 app.event('app_home_opened', ({ event, say }) => {  
   // Look up the user from DB
   // console.log(event);
-  // await dbConnect()
+  dbConnect()
 
   say(`Hello BDBI member, and welcome <@${event.user}>!`);
 
