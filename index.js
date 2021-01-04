@@ -39,12 +39,12 @@ const app = new App({
 
 
 
-app.event('app_home_opened', async ({ event, say }) => {  
+app.event('app_home_opened', ({ event, say }) => {  
   // Look up the user from DB
   // console.log(event);
-  await dbConnect()
+  // await dbConnect()
 
-  await say(`Hello BDBI member, and welcome <@${event.user}>!`);
+  say(`Hello BDBI member, and welcome <@${event.user}>!`);
 
 
 });
