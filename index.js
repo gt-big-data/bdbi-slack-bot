@@ -27,7 +27,7 @@ async function dbConnect(){
 
 }
 
-dbConnect().catch(console.error);
+// dbConnect().catch(console.error);
 
 
 
