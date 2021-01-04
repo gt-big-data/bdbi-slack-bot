@@ -6,6 +6,28 @@ const route = express()
 const { App } = require('@slack/bolt');
 const {MongoClient} = require('mongodb');
 
+const uri = process.env.MONGO_URL
+
+const client = new MongoClient(uri, {useUnifiedTopology: true});
+
+// Connect to the MongoDB cluster
+
+
+async function dbConnect(){
+  try {
+    await client.connect();
+    databasesList = await client.db().admin().listDatabases();
+    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+  }
+  catch(e) {
+    console.log(e);
+  }
+
+}
+
+dbConnect().catch(console.error);
+
+
 
 
 const app = new App({
@@ -18,20 +40,9 @@ const app = new App({
 app.event('app_home_opened', async ({ event, say }) => {  
   // Look up the user from DB
   // console.log(event);
-  say(`Hello BDBI member, and welcome <@${event.user}>!`);
+  await dbConnect()
 
-  const uri = process.env.MONGO_URL
-
-  const client = new MongoClient(uri);
-
-  // Connect to the MongoDB cluster
-  await client.connect();
-
-  // Make the appropriate DB calls
-  databasesList = await client.db().admin().listDatabases();
-
-  console.log(databasesList)
-
+  await say(`Hello BDBI member, and welcome <@${event.user}>!`);
 
 
 });
