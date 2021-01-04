@@ -8,7 +8,7 @@ const {MongoClient} = require('mongodb');
 
 const uri = process.env.MONGO_URL
 
-const client = new MongoClient(uri, {useUnifiedTopology: true});
+const client = new MongoClient(uri);
 
 // Connect to the MongoDB cluster
 
